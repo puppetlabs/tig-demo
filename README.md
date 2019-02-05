@@ -1,2 +1,2 @@
-# brownbag-demo
-A demo for vbrownbag sessions
+# vbrownbag-demo
+A Bolt demo for vBrownBag
