@@ -21,15 +21,22 @@ plan brownbag::server (
               }
           ]
       },
-      inputs   => {
-          'cpu' => [
-              {
+    }
+
+    telegraf::input{ 'cpu':
+      options => [{
                   'percpu'   => true,
                   'totalcpu' => true,
-              }
-          ]
-      }
+      }]
     }
+
+    telegraf::input{ 'disk': }
+    telegraf::input{ 'io': }
+    telegraf::input{ 'net': }
+    telegraf::input{ 'swap': }
+    telegraf::input{ 'system': }
+
+
   }
 }
 
