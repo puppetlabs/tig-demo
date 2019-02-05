@@ -8,7 +8,7 @@ plan brownbag::dashboard (TargetSpec $nodes) {
 
     }
 
-    class { 'grafana': 
+    class { 'grafana':
       cfg => {
         app_mode => 'production',
         server   => {
@@ -24,6 +24,7 @@ plan brownbag::dashboard (TargetSpec $nodes) {
           name          => 'grafana',
         },
       },
+    }
 
       # TODO This isn't working yet
       http_conn_validator { 'grafana-conn-validator' :
@@ -49,5 +50,11 @@ plan brownbag::dashboard (TargetSpec $nodes) {
     }
 
     class {'influxdb': }
+
+    influx_database{"bolt":
+      # TODO: probaly want to create another user
+      superuser => 'bolt',
+      superpass => 'hunter2'
+    }
   }
 }
