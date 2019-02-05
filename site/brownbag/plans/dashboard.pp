@@ -27,6 +27,11 @@ plan brownbag::dashboard (TargetSpec $nodes) {
     }
 
     class {'influxdb': }
+    influx_database{"bolt":
+      # TODO: probaly want to create another user
+      superuser => 'bolt',
+      superpass => 'hunter2'
+    }
 
     grafana_datasource { 'influxdb':
       require           => Influx_database['bolt'],
@@ -37,17 +42,12 @@ plan brownbag::dashboard (TargetSpec $nodes) {
       url               => 'http://localhost:8086',
       user              => 'bolt',
       password          => 'hunter2',
-      database          => 'graphite',
+      database          => 'bolt',
       access_mode       => 'proxy',
       is_default        => true,
       #json_data         => template('path/to/additional/config.json'),
     }
 
 
-    influx_database{"bolt":
-      # TODO: probaly want to create another user
-      superuser => 'bolt',
-      superpass => 'hunter2'
-    }
   }
 }
