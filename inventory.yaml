@@ -1,7 +1,9 @@
 ---
 groups:
   - name: dashboard
+    nodes: [ ]
   - name: agents
+    nodes: [ ]
 config:
   ssh:
     host-key-check: false
