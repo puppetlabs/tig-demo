@@ -8,6 +8,10 @@ plan brownbag::dashboard (TargetSpec $nodes) {
 
     }
 
+    $gurl = 'http://localhost:8080'
+    $guser = 'bolt'
+    $gpass = 'boltIsAwesome'
+
     class { 'grafana':
       cfg => {
         app_mode => 'production',
@@ -15,8 +19,8 @@ plan brownbag::dashboard (TargetSpec $nodes) {
           http_port     => 8080,
         },
         security => {
-          admin_user => 'bolt',
-          admin_password => 'boltIsAwesome',
+          admin_user => $guser,
+          admin_password => $gpass,
         },
         database => {
           type          => 'sqlite3',
@@ -35,9 +39,9 @@ plan brownbag::dashboard (TargetSpec $nodes) {
 
     grafana_datasource { 'influxdb':
       require           => Influx_database['bolt'],
-      grafana_url       => 'http://localhost:8080',
-      grafana_user      => 'bolt',
-      grafana_password  => 'boltIsAwesome',
+      grafana_url       => $gurl,
+      grafana_user      => $guser,
+      grafana_password  => $gpass,
       type              => 'influxdb',
       url               => 'http://localhost:8086',
       user              => 'bolt',
@@ -45,9 +49,13 @@ plan brownbag::dashboard (TargetSpec $nodes) {
       database          => 'bolt',
       access_mode       => 'proxy',
       is_default        => true,
-      #json_data         => template('path/to/additional/config.json'),
     }
 
-
+    grafana_dashboard { 'telegraf':
+      grafana_url       => $gurl,
+      grafana_user      => $guser,
+      grafana_password  => $gpass,
+      content           => template('brownbag/dashboards/telegraf.json')
+    }
   }
 }

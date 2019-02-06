@@ -1,10 +1,13 @@
 plan brownbag::server (
   TargetSpec $nodes,
-  String $influx_url = 'http://d65ysovmaoaff97.delivery.puppetlabs.net:8086',
+  #String $influx_url = 'http://ce4yw0muc17bu4x.delivery.puppetlabs.net:8086',
   String $database = 'bolt',
   String $username = 'bolt',
   String $password = 'hunter2',
 ) {
+
+  $influx_host = get_targets('graf')[0].name
+  $influx_url = "http://${influx_host}:8086"
 
   apply_prep($nodes)
 
@@ -24,20 +27,15 @@ plan brownbag::server (
     }
 
     telegraf::input{ 'cpu':
-      options => [{
-                  'percpu'   => true,
-                  'totalcpu' => true,
-      }]
+      options => [{ 'percpu' => true, 'totalcpu' => true, }]
     }
 
-    telegraf::input{ 'disk': }
-    telegraf::input{ 'io': }
-    telegraf::input{ 'net': }
-    telegraf::input{ 'swap': }
-    telegraf::input{ 'system': }
-
-
+    ['disk', 'io', 'net', 'swap', 'system', 'mem', 'processes', 'kernel' ].each |$plug| {
+      telegraf::input{ $plug:
+       options => [{}]}
+    }
   }
+
 }
 
 
