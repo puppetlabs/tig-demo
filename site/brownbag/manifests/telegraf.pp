@@ -1,12 +1,11 @@
 class brownbag::telegraf (
-  $influx_host,
-  String $database = 'bolt',
-  String $username = 'bolt',
-  String $password = 'hunter2',
-) {
+  String $influx_host,
+  String $password = $brownbag::params::influxdb_password,
+  String $database = $brownbag::params::influxdb_database,
+  String $username = $brownbag::params::influxdb_user,
+) inherits ::brownbag::params {
 
   $influx_url = "http://${influx_host}:8086"
-
 
   class { 'telegraf':
     hostname => $facts['hostname'],

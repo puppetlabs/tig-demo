@@ -1,14 +1,18 @@
-class brownbag::dashboard () {
-  # TODO: paramaterize and maybe split into grafana/influxdb
+class brownbag::dashboard (
+  String $grafana_password = $brownbag::params::grafana_password,
+  String $grafana_user = $brownbag::params::grafana_user,
+  String $grafana_url = $brownbag::params::grafana_url,
+  String $influx_password = $brownbag::params::influxdb_password,
+  String $influx_database = $brownbag::params::influxdb_database,
+  String $influx_username = $brownbag::params::influxdb_user,
+
+) inherits ::brownbag::params {
+  # TODO: Do we need to create this user?
   user { 'bolt':
     ensure   => present,
     password => 'bolt',
 
   }
-
-  $gurl = 'http://localhost:8080'
-  $guser = 'bolt'
-  $gpass = 'boltIsAwesome'
 
   class { 'grafana':
     cfg => {
@@ -17,8 +21,8 @@ class brownbag::dashboard () {
         http_port     => 8080,
       },
       security => {
-        admin_user => $guser,
-        admin_password => $gpass,
+        admin_user => $grafana_user,
+        admin_password => $grafana_password,
       },
       database => {
         type          => 'sqlite3',
@@ -29,30 +33,29 @@ class brownbag::dashboard () {
   }
 
   class {'influxdb': }
-  influx_database{"bolt":
-    # TODO: probaly want to create another user
-    superuser => 'bolt',
-    superpass => 'hunter2'
+  influx_database{$influx_database:
+    superuser => $influx_username,
+    superpass => $influx_password
   }
 
   grafana_datasource { 'influxdb':
     require           => Influx_database['bolt'],
-    grafana_url       => $gurl,
-    grafana_user      => $guser,
-    grafana_password  => $gpass,
+    grafana_url       => $grafana_url,
+    grafana_user      => $grafana_user,
+    grafana_password  => $grafana_password,
     type              => 'influxdb',
     url               => 'http://localhost:8086',
-    user              => 'bolt',
-    password          => 'hunter2',
-    database          => 'bolt',
+    user              => $influx_username,
+    password          => $influx_password,
+    database          => $influx_database,
     access_mode       => 'proxy',
     is_default        => true,
   }
 
   grafana_dashboard { 'telegraf':
-    grafana_url       => $gurl,
-    grafana_user      => $guser,
-    grafana_password  => $gpass,
+    grafana_url       => $grafana_url,
+    grafana_user      => $grafana_user,
+    grafana_password  => $grafana_password,
     content           => template('brownbag/dashboards/telegraf.json')
   }
 }
