@@ -1,7 +1,13 @@
-plan brownbag::dashboard (TargetSpec $nodes) {
+plan brownbag::dashboard {
+  $localhost = get_targets('local://localhost')
+
+  $nodes = run_task("floaty::get", $localhost, platform=>"el-7-x86_64", count=>3)['stdout']
+  add_to_group($nodes[0], 'dashboard')
+  add_to_group($nodes, 'agents')
+
   $nodes.apply_prep
 
-  return apply($nodes) {
+  return apply($nodes[0]) {
     user { 'bolt':
       ensure   => present,
       password => 'bolt',
