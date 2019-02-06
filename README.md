@@ -38,8 +38,9 @@ bolt plan run brownbag
 
 ## More Resources
 
+* Bolt Slack Channel: #bolt on https://puppetcommunity.slack.com
 * [Bolt Project](https://github.com/puppetlabs/bolt)
 * [Bolt Documentation](https://puppet.com/docs/bolt/latest/bolt.html)
 * [Tasks Hands-on Lab](https://github.com/puppetlabs/tasks-hands-on-lab#puppet-tasks-hands-on-lab)
 * [Puppet Learning VM](https://learn.puppet.com/course/puppet-orchestration-bolt-and-tasks)
-* Bolt Slack Channel: #bolt on https://puppetcommunity.slack.com
+* [Plan Functions](https://puppet.com/docs/bolt/latest/plan_functions.html)
