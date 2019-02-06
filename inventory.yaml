@@ -1,0 +1,7 @@
+---
+groups:
+  - name: dashboard
+  - name: agents
+config:
+  ssh:
+    host-key-check: false
