@@ -1,6 +1,5 @@
 plan brownbag::server (
   TargetSpec $nodes,
-  #String $influx_url = 'http://ce4yw0muc17bu4x.delivery.puppetlabs.net:8086',
   String $database = 'bolt',
   String $username = 'bolt',
   String $password = 'hunter2',
