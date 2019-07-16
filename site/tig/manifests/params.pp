@@ -1,4 +1,4 @@
-class brownbag::params (
+class tig::params (
   String $influxdb_password,
   String $grafana_password,
   String $influxdb_database = 'bolt',

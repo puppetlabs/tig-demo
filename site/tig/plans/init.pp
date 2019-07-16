@@ -1,4 +1,4 @@
-plan brownbag(
+plan tig(
   TargetSpec $dashboard,
   TargetSpec $agents
 ) {
@@ -6,13 +6,13 @@ plan brownbag(
   [$dashboard, $agents].apply_prep
 
   apply($dashboard) {
-    include brownbag::dashboard
+    include tig::dashboard
   }
 
   $dashboard_host = $dashboard.get_targets[0].name
 
   apply($agents) {
-    class{ brownbag::telegraf:
+    class{ tig::telegraf:
       influx_host => $dashboard_host
     }
   }

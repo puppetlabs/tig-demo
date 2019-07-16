@@ -1,7 +1,7 @@
 ---
-brownbag::telegraf::database: "bolt"
-brownbag::telegraf::username: "bolt"
+tig::telegraf::database: "bolt"
+tig::telegraf::username: "bolt"
 # In the real world encrypt these with hiera eyaml or store externally
-brownbag::params::influxdb_password: "hunter2"
-brownbag::params::grafana_password: "boltIsAwesome"
+tig::params::influxdb_password: "hunter2"
+tig::params::grafana_password: "boltIsAwesome"
 
