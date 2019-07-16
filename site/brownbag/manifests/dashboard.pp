@@ -7,13 +7,6 @@ class brownbag::dashboard (
   String $influx_username = $brownbag::params::influxdb_user,
 
 ) inherits ::brownbag::params {
-  # TODO: Do we need to create this user?
-  user { 'bolt':
-    ensure   => present,
-    password => 'bolt',
-
-  }
-
   class { 'grafana':
     cfg => {
       app_mode => 'production',
