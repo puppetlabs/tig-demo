@@ -1,19 +1,12 @@
-class brownbag::dashboard (
-  String $grafana_password = $brownbag::params::grafana_password,
-  String $grafana_user = $brownbag::params::grafana_user,
-  String $grafana_url = $brownbag::params::grafana_url,
-  String $influx_password = $brownbag::params::influxdb_password,
-  String $influx_database = $brownbag::params::influxdb_database,
-  String $influx_username = $brownbag::params::influxdb_user,
+class tig::dashboard (
+  String $grafana_password = $tig::params::grafana_password,
+  String $grafana_user = $tig::params::grafana_user,
+  String $grafana_url = $tig::params::grafana_url,
+  String $influx_password = $tig::params::influxdb_password,
+  String $influx_database = $tig::params::influxdb_database,
+  String $influx_username = $tig::params::influxdb_user,
 
-) inherits ::brownbag::params {
-  # TODO: Do we need to create this user?
-  user { 'bolt':
-    ensure   => present,
-    password => 'bolt',
-
-  }
-
+) inherits ::tig::params {
   class { 'grafana':
     cfg => {
       app_mode => 'production',
@@ -56,6 +49,6 @@ class brownbag::dashboard (
     grafana_url       => $grafana_url,
     grafana_user      => $grafana_user,
     grafana_password  => $grafana_password,
-    content           => template('brownbag/dashboards/telegraf.json')
+    content           => template('tig/dashboards/telegraf.json')
   }
 }

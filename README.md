@@ -1,6 +1,6 @@
 # Puppet Bolt TIG Stack Demo
 
-A demo using [Puppet Bolt](https://puppet.com/docs/bolt) to configure and deploy metrics visualization using [Telegraf](https://forge.puppet.com/puppet/telegraf), [InfluxDB](https://forge.puppet.com/quadriq/influxdb), and [Grafana](https://forge.puppet.com/puppet/grafana), all via [Puppet Modules](https://puppet.com/docs/puppet/6.2/modules_fundamentals.html). This is for a [VBrownBag](https://www.youtube.com/channel/UCaZf13iWhwnBdpIkrEmHLbA) presentation.
+A demo using [Puppet Bolt](https://puppet.com/docs/bolt) to configure and deploy metrics visualization using [Telegraf](https://forge.puppet.com/puppet/telegraf), [InfluxDB](https://forge.puppet.com/quadriq/influxdb), and [Grafana](https://forge.puppet.com/puppet/grafana), all via [Puppet Modules](https://puppet.com/docs/puppet/6.2/modules_fundamentals.html).
 
 ## Setup
 
@@ -33,7 +33,7 @@ You only need one node to be in 'dashboard' and one or more nodes in 'agents'.
 
 Run the bolt plan:
 ```
-bolt plan run brownbag
+bolt plan run tig dashboard=dashboard.example.com agents=agent1.example.com,agent2.example.com
 ```
 
 ## More Resources

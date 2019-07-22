@@ -1,9 +1,9 @@
-class brownbag::telegraf (
+class tig::telegraf (
   String $influx_host,
-  String $password = $brownbag::params::influxdb_password,
-  String $database = $brownbag::params::influxdb_database,
-  String $username = $brownbag::params::influxdb_user,
-) inherits ::brownbag::params {
+  String $password = $tig::params::influxdb_password,
+  String $database = $tig::params::influxdb_database,
+  String $username = $tig::params::influxdb_user,
+) inherits ::tig::params {
 
   $influx_url = "http://${influx_host}:8086"
 
